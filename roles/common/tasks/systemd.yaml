@@ -7,7 +7,7 @@
   ansible.builtin.systemd_service:
     daemon_reload: true
 
-- name: Start {{component}} Service
+- name: Start {{ component }} Service
   ansible.builtin.service:
     name: "{{component}}"
     state: restarted

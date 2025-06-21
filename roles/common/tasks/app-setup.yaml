@@ -8,7 +8,7 @@
     name: roboshop
     comment: "Roboshop user"
     shell: /sbin/nologin
-    system: user
+    system: true
     home: /app
 
 - name: Download Config file
