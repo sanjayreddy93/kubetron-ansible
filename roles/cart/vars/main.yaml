@@ -1,0 +1,2 @@
+REDIS_HOST: redis.kubetron.site
+CATALOGUE_HOST: catalogue.kubetron.site

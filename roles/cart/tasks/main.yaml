@@ -1,0 +1,15 @@
+- name: Create cart user
+  include_role:
+    name: common
+    tasks_from: app-setup.yaml
+
+- name: Install Nodejs
+  include_role:
+    name: common
+    tasks_from: nodejs.yaml
+
+- name: Reload Daemon
+  include_role: 
+    name: common
+    tasks_from: systemd.yaml
+    
