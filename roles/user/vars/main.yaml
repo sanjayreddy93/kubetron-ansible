@@ -1,0 +1,2 @@
+REDIS_HOST: redis.kubetron.site
+MONGODB_HOST: mongodb.kubetron.site

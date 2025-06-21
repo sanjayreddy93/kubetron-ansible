@@ -1,0 +1,21 @@
+- name: Add User component USER
+  include_role:
+    name: common
+    tasks_from: app-setup.yaml
+
+- name: Process NodeJS
+  include_role:
+    name: common
+    tasks_from: nodejs.yaml
+
+- name: Update User Port
+  ansible.builtin.replace:
+    path: /app/server.js
+    regexp: 8080
+    replace: 8081
+
+- name: Create User service
+  include_role:
+    name: common
+    tasks_from: systemd.yaml
+    
