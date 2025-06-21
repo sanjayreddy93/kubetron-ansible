@@ -25,7 +25,7 @@
 - debug: msg="{{command_output.stdout_lines}}"
 
 - name: Load the data to Mongodb
-  ansible.builtin.command: mongosh --host {{ MONGODB_HOST }} </app/db/master-data.js
+  ansible.builtin.command: mongosh --host {{ MONGODB_HOST }} < /app/db/master-data.js
   when: command_output.stdout | int < 0
 
 - name: Restart Daemon
