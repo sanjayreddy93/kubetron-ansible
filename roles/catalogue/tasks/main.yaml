@@ -1,6 +1,34 @@
-- name: Disable existing NodeJS and install nodejs20 
-  ansible.builtin.shell: |
-    dnf module disable nodejs -y
-    dnf module enable nodejs:20 -y
-    dnf module install nodejs:20 -y
-    
+- name: Setup Catalogue App
+  include_role:
+    name: common
+    tasks_from: app-setup.yaml
+
+- name: Install npm and packages
+  include_role:
+    name: common
+    tasks_from: nodejs.yaml
+
+- name: Copy mongo.repo
+  ansible.builtin.copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+  
+- name: install mongodb client
+  ansible.builtin.dnf:
+    name: mongodb-mongosh
+    state: present
+  
+- name: Check if the Products are loaded
+  ansible.builtin.command: mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
+  register: command_output
+
+- debug: msg="{{command_output.stdout_lines}}"
+
+- name: Load the data to Mongodb
+  ansible.builtin.command: mongosh --host {{ MONGODB_HOST }} </app/db/master-data.js
+  when: command_output | int < 0
+
+- name: Restart Daemon
+  include_role:
+    name: common
+    tasks_from: systemd.yaml

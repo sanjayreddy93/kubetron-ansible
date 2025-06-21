@@ -16,14 +16,8 @@
     url: "https://roboshop-artifacts.s3.amazonaws.com/{{component}}-v3.zip"
     dest: "/tmp/{{ component }}.zip"
 
-- name: Unzip the frontend data content
+- name: Unzip the {{ component }} data content
   ansible.builtin.unarchive:
     src: /tmp/{{component}}.zip
-    dest: /usr/share/nginx/html
+    dest: /app
     remote_src: yes
-
-- name: Start {{component}} service if not started
-  ansible.builtin.service:
-    name: "{{component}}""
-    state: started
-    enabled: yes
