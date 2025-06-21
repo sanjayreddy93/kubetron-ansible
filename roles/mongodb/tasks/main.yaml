@@ -1,0 +1,22 @@
+- name: Disable MongoDB
+  ansible.builtin.command: dnf module disable mongod -y
+  register: output
+
+- debug: msg="{{ output.stdout_lines }}"
+
+- name: Copy mongo.repo
+  ansible.builtin.copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: Install MongoDB
+  ansible.builtin.command: dnf install mongodb-org -y
+  register: output
+
+- debug: msg="{{ output.stdout_lines }}"
+
+- name: Start MongoDB
+  ansible.builtin.service:
+    name: mongod
+    state: started
+    enabled: yes
