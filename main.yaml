@@ -3,3 +3,6 @@
   become: yes
   roles:
     - "{{ component }}"
+
+  handlers:
+    - import_tasks: common/handlers/main.yaml
