@@ -8,10 +8,17 @@
   ansible.builtin.package:
     name: redis
     state: latest
+
+- name: Start Redis
+  ansible.builtin.service:
+    name: redis
+    state: started
+    enabled: yes
+
 - name: Update Config
   ansible.builtin.replace:
-    src: /etc/redis/redis.conf
+    path: /etc/redis/redis.conf
     regexp: 127.0.0.1
     replace: 0.0.0.0
   notify:
-    - name: Restart Redis
+    - Restart Redis
