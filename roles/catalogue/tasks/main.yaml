@@ -1,0 +1,6 @@
+- name: Disable existing NodeJS and install nodejs20 
+  ansible.builtin.shell: |
+    dnf module disable nodejs -y
+    dnf module enable nodejs:20 -y
+    dnf module install nodejs:20 -y
+    
